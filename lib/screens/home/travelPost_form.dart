@@ -1,29 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:travel/shared/constans.dart';
+import 'package:travel/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:travel/models/users.dart';
+import 'package:intl/intl.dart';
 
 class TravelPostForm extends StatefulWidget {
   @override
   _TravelPostFormState createState() => _TravelPostFormState();
-  static final now = DateTime.now();
 }
 
 class _TravelPostFormState extends State<TravelPostForm> {
   final _formKey = GlobalKey<FormState>();
 
+  String _selectedDate = "Select Date";
+  String _selectedTime = 'Select time';
   String to;
   String from;
-  DateTime date;
-  TimeOfDay time;
+  String date;
+  String time;
+  String error = '';
+
+  //date time piceker
+  Future<void> _openDatePicker(BuildContext context) async {
+    final DateTime d = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2030));
+
+    if (d != null) {
+      setState(() {
+        _selectedDate = new DateFormat.yMMMd('en_US').format(d).toString();
+        date = _selectedDate;
+      });
+    }
+  }
+  // time picker
+
+  Future<void> _openTimePicker(BuildContext context) async {
+    final TimeOfDay t =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    if (t != null) {
+      print(t);
+      setState(() {
+        _selectedTime = t.hour.toString() + ':' + t.minute.toString();
+        time = _selectedTime;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Users>(context);
     return Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
           Text("Add your travel post", style: TextStyle(fontSize: 18)),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
           // text field for from
           TextFormField(
@@ -35,7 +71,7 @@ class _TravelPostFormState extends State<TravelPostForm> {
             },
           ),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
 
           // text field for to
@@ -49,42 +85,63 @@ class _TravelPostFormState extends State<TravelPostForm> {
             },
           ),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
-          // Row(children: <Widget>[
-          //   // date calender
-          //   Text(date == null ? 'Date not selected' : date.toString()),
-          //   SizedBox(
-          //     width: 20,
-          //   ),
-          //   RaisedButton(
-          //       child: Text('Pick a date'),
-          //       onPressed: () {
-          //         showDatePicker(
-          //                 context: context,
-          //                 initialDate: DateTime.now(),
-          //                 firstDate: DateTime.now(),
-          //                 lastDate: DateTime(2030))
-          //             .then((date) {
-          //           setState(() {
-          //             date = date;
-          //             print(date);
-          //           });
-          //         });
-          //       }),
-          // ]),
+          Row(children: <Widget>[
+            Padding(padding: EdgeInsets.only(left: 5)),
+
+            // date calender
+
+            IconButton(
+              icon: Icon(Icons.calendar_today),
+              onPressed: () {
+                _openDatePicker(context);
+              },
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(_selectedDate),
+
+            SizedBox(
+              width: 10,
+            ),
+
+            // select time
+
+            IconButton(
+              icon: Icon(Icons.alarm),
+              onPressed: () {
+                _openTimePicker(context);
+              },
+            ),
+
+            SizedBox(
+              width: 5,
+            ),
+            Text(_selectedTime),
+          ]),
           //time clock
           SizedBox(
-            height: 20,
+            height: 15,
           ),
           //submit button
           RaisedButton(
               onPressed: () async {
-                print(to);
-                print(from);
+                if (_formKey.currentState.validate()) {
+                  dynamic res = await DatabaseService(uid: user.uid)
+                      .updateUserTravelData(to, from, date, time, user.uid);
+                  if (res == null) {
+                    setState(() => error = 'Please provide necessary details');
+                  }
+                }
               },
               color: Colors.redAccent,
-              child: Text("Add", style: TextStyle(color: Colors.white)))
+              child: Text("Add", style: TextStyle(color: Colors.white))),
+          SizedBox(
+            height: 15,
+          ),
+          Text(error, style: TextStyle(color: Colors.red, fontSize: 15)),
         ],
       ),
     );
