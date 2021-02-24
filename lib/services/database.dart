@@ -27,19 +27,19 @@ class DatabaseService {
   }
 
   // user list from snapshot
-  List<UserData> _userListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return UserData(
-          firstName: doc.data()['firstName'],
-          lastName: doc.data()['lastName'],
-          uid: doc.data()['uid']);
-    }).toList();
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        firstName: snapshot.data()['firstName'],
+        lastName: snapshot.data()['lastName'],
+        uid: snapshot.data()['uid']);
   }
 
   //stream of users
-  Stream<List<UserData>> get userData {
-    return userCollection.snapshots().map(_userListFromSnapshot);
+  Stream<UserData> get userData {
+    return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
+
+  // post list from snapshot
 
   List<PostData> _postListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -52,7 +52,29 @@ class DatabaseService {
     }).toList();
   }
 
+//stream of posts
   Stream<List<PostData>> get postData {
     return postCollection.snapshots().map(_postListFromSnapshot);
+  }
+
+  // current user post list from snapshot
+
+  List<PostData> _currentUserPostListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return PostData(
+          to: doc.data()['to'],
+          from: doc.data()['from'],
+          date: doc.data()['date'],
+          time: doc.data()['time'],
+          uid: doc.data()['uid']);
+    }).toList();
+  }
+
+  // current user stream of posts
+  Stream<List<PostData>> get myPost {
+    return postCollection
+        .where('uid', isEqualTo: uid.toString())
+        .snapshots()
+        .map(_currentUserPostListFromSnapshot);
   }
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Desc extends StatelessWidget {
-  const Desc({Key key, this.from, this.to, this.date, this.time})
+  const Desc({Key key, this.from, this.to, this.date, this.time, this.name})
       : super(key: key);
 
   final String to;
   final String from;
   final String date;
   final String time;
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +17,7 @@ class Desc extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'harsh',
+            '$name',
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14.0,

@@ -26,11 +26,16 @@ class Home extends StatelessWidget {
     return StreamProvider<List<PostData>>.value(
       value: DatabaseService().postData,
       child: Scaffold(
-        backgroundColor: Colors.blue[50],
         appBar: AppBar(
           title: Text('Travel Buddy'),
           backgroundColor: Colors.blue[400],
           actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.assignment_rounded),
+                iconSize: 40,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/myProfile');
+                }),
             IconButton(
               icon: Icon(Icons.account_circle_sharp),
               iconSize: 40,
