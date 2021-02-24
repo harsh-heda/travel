@@ -14,11 +14,19 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     void _showAddPostPanel() {
       showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
           builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: TravelPostForm(),
+            return SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+                  child: TravelPostForm(),
+                ),
+              ),
             );
           });
     }

@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/models/users.dart';
 import 'package:travel/shared/desc.dart';
 import 'package:travel/models/posts.dart';
 import 'package:travel/services/database.dart';
 import 'package:travel/shared/loading.dart';
-import 'package:travel/screens/home/travelPost_form.dart';
+import 'package:travel/screens/myProfile/profilePost_form.dart';
 
 class ProfileCustomCard extends StatelessWidget {
   final PostData post;
@@ -16,10 +15,20 @@ class ProfileCustomCard extends StatelessWidget {
     void _showAddPostPanel() {
       showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: TravelPostForm(),
+            return SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+                  child: ProfilePostForm(
+                    pid: post.pid,
+                  ),
+                ),
+              ),
             );
           });
     }
@@ -50,7 +59,11 @@ class ProfileCustomCard extends StatelessWidget {
                           onPressed: () => _showAddPostPanel())),
                   Expanded(
                       child: IconButton(
-                          icon: Icon(Icons.delete), onPressed: () {}))
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            print(post.pid);
+                            DatabaseService(uid: post.pid).deletePost();
+                          }))
                 ],
               ),
             );

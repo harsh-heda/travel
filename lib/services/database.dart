@@ -22,8 +22,21 @@ class DatabaseService {
 
   Future updateUserTravelData(
       String to, String from, String date, String time, String uid) async {
-    return await postCollection
-        .add({'to': to, 'from': from, 'date': date, 'time': time, 'uid': uid});
+    try {
+      String pid = postCollection.doc().id;
+      await postCollection.doc(pid).set({
+        'to': to,
+        'from': from,
+        'date': date,
+        'time': time,
+        'uid': uid,
+        'pid': pid
+      });
+      return await postCollection.doc(pid).get();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
   // user list from snapshot
@@ -48,7 +61,8 @@ class DatabaseService {
           from: doc.data()['from'],
           date: doc.data()['date'],
           time: doc.data()['time'],
-          uid: doc.data()['uid']);
+          uid: doc.data()['uid'],
+          pid: doc.data()['pid']);
     }).toList();
   }
 
@@ -66,7 +80,8 @@ class DatabaseService {
           from: doc.data()['from'],
           date: doc.data()['date'],
           time: doc.data()['time'],
-          uid: doc.data()['uid']);
+          uid: doc.data()['uid'],
+          pid: doc.data()['pid']);
     }).toList();
   }
 
@@ -76,5 +91,29 @@ class DatabaseService {
         .where('uid', isEqualTo: uid.toString())
         .snapshots()
         .map(_currentUserPostListFromSnapshot);
+  }
+
+  //  deleting user post
+  Future<void> deletePost() async {
+    return await postCollection
+        .doc(uid)
+        .delete()
+        .then((value) => print("Post Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
+  }
+
+  // editing user post
+
+  Future updatePost(String to, String from, String date, String time) {
+    Map<String, String> values = new Map<String, String>();
+    to.isEmpty ? print('no change') : values['to'] = to;
+    from.isEmpty ? print('no change') : values['from'] = from;
+    date.isEmpty ? print('no change') : values['date'] = date;
+    time.isEmpty ? print('no change') : values['time'] = time;
+    return postCollection
+        .doc(uid)
+        .update(values)
+        .then((value) => print("Profile Updated"))
+        .catchError((error) => print("Failed to update Profile: $error"));
   }
 }

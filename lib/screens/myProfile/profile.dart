@@ -13,16 +13,16 @@ class MyProfile extends StatefulWidget {
 class _MyProfileState extends State<MyProfile> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   String uid;
-  void _inputData() {
+  String _inputData() {
     final User user = auth.currentUser;
-    setState(() => uid = user.uid);
+    if (user != null) return user.uid.toString();
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    _inputData();
     return StreamProvider<List<PostData>>.value(
-      value: DatabaseService(uid: uid).myPost,
+      value: DatabaseService(uid: _inputData()).myPost,
       child: Scaffold(
         appBar: AppBar(
           title: Text('My Posts'),

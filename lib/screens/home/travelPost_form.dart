@@ -88,8 +88,6 @@ class _TravelPostFormState extends State<TravelPostForm> {
             height: 15,
           ),
           Row(children: <Widget>[
-            Padding(padding: EdgeInsets.only(left: 5)),
-
             // date calender
 
             IconButton(
@@ -99,7 +97,7 @@ class _TravelPostFormState extends State<TravelPostForm> {
               },
             ),
             SizedBox(
-              width: 5,
+              width: 10,
             ),
             Text(_selectedDate),
 
@@ -117,7 +115,7 @@ class _TravelPostFormState extends State<TravelPostForm> {
             ),
 
             SizedBox(
-              width: 5,
+              width: 15,
             ),
             Text(_selectedTime),
           ]),
@@ -128,12 +126,18 @@ class _TravelPostFormState extends State<TravelPostForm> {
           //submit button
           RaisedButton(
               onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  dynamic res = await DatabaseService(uid: user.uid)
+                if (_formKey.currentState.validate() &&
+                    date != null &&
+                    time != null) {
+                  await DatabaseService(uid: user.uid)
                       .updateUserTravelData(to, from, date, time, user.uid);
-                  if (res == null) {
-                    setState(() => error = 'Please provide necessary details');
-                  }
+                  setState(() => error = '');
+                }
+                if (time == null) {
+                  setState(() => error = 'Please give a valid time');
+                }
+                if (date == null) {
+                  setState(() => error = 'Please give a valid date');
                 }
               },
               color: Colors.redAccent,
