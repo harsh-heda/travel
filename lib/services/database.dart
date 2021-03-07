@@ -30,7 +30,8 @@ class DatabaseService {
         'date': date,
         'time': time,
         'uid': uid,
-        'pid': pid
+        'pid': pid,
+        'timestamp': Timestamp.now().toDate().toString()
       });
       return await postCollection.doc(pid).get();
     } catch (e) {
@@ -62,13 +63,17 @@ class DatabaseService {
           date: doc.data()['date'],
           time: doc.data()['time'],
           uid: doc.data()['uid'],
-          pid: doc.data()['pid']);
+          pid: doc.data()['pid'],
+          timestamp: doc.data()['timestamp']);
     }).toList();
   }
 
 //stream of posts
   Stream<List<PostData>> get postData {
-    return postCollection.snapshots().map(_postListFromSnapshot);
+    return postCollection
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .map(_postListFromSnapshot);
   }
 
   // current user post list from snapshot

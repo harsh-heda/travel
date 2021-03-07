@@ -36,8 +36,12 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Travel Buddy'),
-          backgroundColor: Colors.blue[400],
+          backgroundColor: Colors.lightBlueAccent[400],
           actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.filter_alt_rounded),
+                iconSize: 40,
+                onPressed: () {}),
             IconButton(
                 icon: Icon(Icons.assignment_rounded),
                 iconSize: 40,
@@ -53,7 +57,14 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: PostList(),
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/Travel.jpg'),
+                    // colorFilter: ColorFilter.mode(
+                    //     Colors.blue[500], BlendMode.colorDodge),
+                    fit: BoxFit.cover)),
+            child: PostList()),
 
         // Add post button
 

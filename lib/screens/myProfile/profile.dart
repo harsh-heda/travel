@@ -28,7 +28,14 @@ class _MyProfileState extends State<MyProfile> {
           title: Text('My Posts'),
           backgroundColor: Colors.blue[400],
         ),
-        body: ProfilePostList(),
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    // colorFilter: ColorFilter.mode(
+                    //     Colors.blue[600], BlendMode.colorDodge),
+                    image: AssetImage('assets/Travel.jpg'),
+                    fit: BoxFit.cover)),
+            child: ProfilePostList()),
       ),
     );
   }
