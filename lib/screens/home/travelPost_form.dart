@@ -132,6 +132,7 @@ class _TravelPostFormState extends State<TravelPostForm> {
                   await DatabaseService(uid: user.uid)
                       .updateUserTravelData(to, from, date, time, user.uid);
                   setState(() => error = '');
+                  Navigator.pop(context);
                 }
                 if (time == null) {
                   setState(() => error = 'Please give a valid time');

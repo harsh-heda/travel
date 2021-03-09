@@ -129,9 +129,6 @@ class _RegisterState extends State<Register> {
                           }
                         }
                       },
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              Colors.redAccent)),
                       child: Text('Register',
                           style: TextStyle(color: Colors.white)),
                     ),

@@ -101,9 +101,6 @@ class _SignInState extends State<SignIn> {
                           }
                         }
                       },
-                      style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              Colors.redAccent)),
                       child: Text('Sign In',
                           style: TextStyle(color: Colors.white)),
                     ),

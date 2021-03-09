@@ -25,9 +25,11 @@ class CustomCard extends StatelessWidget {
                     flex: 1,
                     fit: FlexFit.tight,
                     child: Desc(
-                      name: userData.firstName + ' ' + userData.lastName,
-                      to: post.to,
-                      from: post.from,
+                      name: userData.firstName.toUpperCase() +
+                          ' ' +
+                          userData.lastName.toUpperCase(),
+                      to: post.to.toUpperCase(),
+                      from: post.from.toUpperCase(),
                       date: post.date,
                       time: post.time,
                       timestamp: DateFormat.yMMMd('en_US')
