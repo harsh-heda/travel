@@ -34,7 +34,7 @@ class _SignInState extends State<SignIn> {
               backgroundColor: Colors.blue[600],
               title: Text('Sign in to meet your travel buddy'),
               actions: <Widget>[
-                FlatButton.icon(
+                TextButton.icon(
                   icon: Icon(Icons.person),
                   label: Text('Register'),
                   onPressed: () {
@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
 
                     // sign in button
 
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
@@ -101,7 +101,9 @@ class _SignInState extends State<SignIn> {
                           }
                         }
                       },
-                      color: Colors.redAccent,
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.redAccent)),
                       child: Text('Sign In',
                           style: TextStyle(color: Colors.white)),
                     ),

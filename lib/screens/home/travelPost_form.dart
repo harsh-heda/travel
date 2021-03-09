@@ -124,7 +124,7 @@ class _TravelPostFormState extends State<TravelPostForm> {
             height: 15,
           ),
           //submit button
-          RaisedButton(
+          ElevatedButton(
               onPressed: () async {
                 if (_formKey.currentState.validate() &&
                     date != null &&
@@ -140,7 +140,9 @@ class _TravelPostFormState extends State<TravelPostForm> {
                   setState(() => error = 'Please give a valid date');
                 }
               },
-              color: Colors.redAccent,
+              style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.redAccent)),
               child: Text("Add", style: TextStyle(color: Colors.white))),
           SizedBox(
             height: 15,

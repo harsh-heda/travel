@@ -136,14 +136,16 @@ class _ProfilePostFormState extends State<ProfilePostForm> {
                     height: 15,
                   ),
                   //submit button
-                  RaisedButton(
+                  ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           await DatabaseService(uid: widget.pid).updatePost(
                               _currTo, _currFrom, _currDate, _currTime);
                         }
                       },
-                      color: Colors.redAccent,
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.redAccent)),
                       child: Text("Update",
                           style: TextStyle(color: Colors.white))),
                   SizedBox(

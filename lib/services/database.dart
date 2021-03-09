@@ -104,7 +104,7 @@ class DatabaseService {
         .doc(uid)
         .delete()
         .then((value) => print("Post Deleted"))
-        .catchError((error) => print("Failed to delete user: $error"));
+        .catchError((error) => print("Failed to delete post: $error"));
   }
 
   // editing user post
@@ -118,7 +118,7 @@ class DatabaseService {
     return postCollection
         .doc(uid)
         .update(values)
-        .then((value) => print("Profile Updated"))
-        .catchError((error) => print("Failed to update Profile: $error"));
+        .then((value) => print("Post Updated"))
+        .catchError((error) => print("Failed to update Post: $error"));
   }
 }

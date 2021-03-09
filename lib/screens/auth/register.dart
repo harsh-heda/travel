@@ -28,13 +28,13 @@ class _RegisterState extends State<Register> {
     return loading
         ? Loading()
         : Scaffold(
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.blue[100],
             appBar: AppBar(
               backgroundColor: Colors.blue[600],
               title: Text('Sign Up to meet your travel buddy'),
               actions: <Widget>[
-                FlatButton.icon(
+                TextButton.icon(
                   icon: Icon(Icons.person),
                   label: Text('Sign In'),
                   onPressed: () {
@@ -114,7 +114,7 @@ class _RegisterState extends State<Register> {
 
                     // sign in button
 
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
@@ -129,7 +129,9 @@ class _RegisterState extends State<Register> {
                           }
                         }
                       },
-                      color: Colors.redAccent,
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Colors.redAccent)),
                       child: Text('Register',
                           style: TextStyle(color: Colors.white)),
                     ),
