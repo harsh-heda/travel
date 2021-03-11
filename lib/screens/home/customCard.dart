@@ -30,7 +30,9 @@ class CustomCard extends StatelessWidget {
                           userData.lastName.toUpperCase(),
                       to: post.to.toUpperCase(),
                       from: post.from.toUpperCase(),
-                      date: post.date,
+                      date: DateFormat.yMMMd('en_US')
+                          .format(post.date)
+                          .toString(),
                       time: post.time,
                       timestamp: DateFormat.yMMMd('en_US')
                           .format(DateTime.parse(post.timestamp))

@@ -21,7 +21,7 @@ class DatabaseService {
   }
 
   Future updateUserTravelData(
-      String to, String from, String date, String time, String uid) async {
+      String to, String from, DateTime date, String time, String uid) async {
     try {
       String pid = postCollection.doc().id;
       await postCollection.doc(pid).set({
@@ -60,7 +60,7 @@ class DatabaseService {
       return PostData(
           to: doc.data()['to'],
           from: doc.data()['from'],
-          date: doc.data()['date'],
+          date: doc.data()['date'].toDate(),
           time: doc.data()['time'],
           uid: doc.data()['uid'],
           pid: doc.data()['pid'],
@@ -71,7 +71,8 @@ class DatabaseService {
 //stream of posts
   Stream<List<PostData>> get postData {
     return postCollection
-        .orderBy('timestamp', descending: true)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.now())
+        .orderBy('date', descending: true)
         .snapshots()
         .map(_postListFromSnapshot);
   }
@@ -83,7 +84,7 @@ class DatabaseService {
       return PostData(
           to: doc.data()['to'],
           from: doc.data()['from'],
-          date: doc.data()['date'],
+          date: doc.data()['date'].toDate(),
           time: doc.data()['time'],
           uid: doc.data()['uid'],
           pid: doc.data()['pid']);
@@ -109,11 +110,13 @@ class DatabaseService {
 
   // editing user post
 
-  Future updatePost(String to, String from, String date, String time) {
-    Map<String, String> values = new Map<String, String>();
+  Future updatePost(String to, String from, DateTime date, String time) {
+    Map<String, dynamic> values = new Map<String, dynamic>();
     to.isEmpty ? print('no change') : values['to'] = to;
     from.isEmpty ? print('no change') : values['from'] = from;
-    date.isEmpty ? print('no change') : values['date'] = date;
+    date == null
+        ? print('no change')
+        : values['date'] = Timestamp.fromDate(date);
     time.isEmpty ? print('no change') : values['time'] = time;
     return postCollection
         .doc(uid)

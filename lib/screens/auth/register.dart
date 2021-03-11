@@ -32,11 +32,18 @@ class _RegisterState extends State<Register> {
             backgroundColor: Colors.blue[100],
             appBar: AppBar(
               backgroundColor: Colors.blue[600],
-              title: Text('Sign Up to meet your travel buddy'),
+              title: Text('Sign Up to meet travel buddy'),
               actions: <Widget>[
                 TextButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('Sign In'),
+                  icon: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  label: Text(
+                    'Sign In',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
                   onPressed: () {
                     widget.toggleView();
                   },

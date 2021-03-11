@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/models/posts.dart';
 import 'package:travel/screens/home/customCard.dart';
@@ -15,7 +16,6 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     final posts = Provider.of<List<PostData>>(context) ?? [];
     if (widget.filter != null) {
-      print(widget.filter['to']);
       if (widget.filter['to'] != null) {
         posts.retainWhere((element) => element.to == null
             ? true
@@ -28,8 +28,10 @@ class _PostListState extends State<PostList> {
                 widget.filter['from'].toUpperCase());
       }
       if (widget.filter['date'] != null) {
-        posts.retainWhere((element) =>
-            element.to == null ? true : element.date == widget.filter['date']);
+        posts.retainWhere((element) => element.to == null
+            ? true
+            : DateFormat.yMMMd('en_US').format(element.date).toString() ==
+                widget.filter['date']);
       }
     }
 

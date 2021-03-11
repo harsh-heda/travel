@@ -1,7 +1,7 @@
 class PostData {
   final String from;
   final String to;
-  final String date;
+  final DateTime date;
   final String time;
   final String uid;
   final String pid;

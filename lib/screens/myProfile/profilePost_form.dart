@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:travel/shared/constans.dart';
 import 'package:travel/services/database.dart';
-import 'package:intl/intl.dart';
 import 'package:travel/shared/loading.dart';
 
 class ProfilePostForm extends StatefulWidget {
@@ -15,11 +15,10 @@ class ProfilePostForm extends StatefulWidget {
 class _ProfilePostFormState extends State<ProfilePostForm> {
   final _formKey = GlobalKey<FormState>();
 
-  String _selectedDate = "Select Date";
   String _selectedTime = 'Select time';
   String _currTo;
   String _currFrom;
-  String _currDate;
+  DateTime _currDate;
   String _currTime;
   String error = '';
 
@@ -33,8 +32,7 @@ class _ProfilePostFormState extends State<ProfilePostForm> {
 
     if (d != null) {
       setState(() {
-        _selectedDate = new DateFormat.yMMMd('en_US').format(d).toString();
-        _currDate = _selectedDate;
+        _currDate = d;
       });
     }
   }
@@ -44,7 +42,6 @@ class _ProfilePostFormState extends State<ProfilePostForm> {
     final TimeOfDay t =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (t != null) {
-      print(t);
       setState(() {
         _selectedTime = t.hour.toString() + ':' + t.minute.toString();
         _currTime = _selectedTime;
@@ -111,7 +108,10 @@ class _ProfilePostFormState extends State<ProfilePostForm> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(_currDate ?? snapshot.data.data()['date']),
+                    Text(_currDate ??
+                        DateFormat.yMMMd('en_US')
+                            .format(snapshot.data.data()['date'].toDate())
+                            .toString()),
 
                     SizedBox(
                       width: 10,

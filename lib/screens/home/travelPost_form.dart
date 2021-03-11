@@ -17,9 +17,10 @@ class _TravelPostFormState extends State<TravelPostForm> {
   String _selectedTime = 'Select time';
   String to;
   String from;
-  String date;
+  DateTime date;
   String time;
   String error = '';
+  TimeOfDay tt;
 
   //date time piceker
   Future<void> _openDatePicker(BuildContext context) async {
@@ -32,7 +33,7 @@ class _TravelPostFormState extends State<TravelPostForm> {
     if (d != null) {
       setState(() {
         _selectedDate = new DateFormat.yMMMd('en_US').format(d).toString();
-        date = _selectedDate;
+        date = d;
       });
     }
   }
@@ -42,8 +43,8 @@ class _TravelPostFormState extends State<TravelPostForm> {
     final TimeOfDay t =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (t != null) {
-      print(t);
       setState(() {
+        tt = t;
         _selectedTime = t.hour.toString() + ':' + t.minute.toString();
         time = _selectedTime;
       });
@@ -129,8 +130,13 @@ class _TravelPostFormState extends State<TravelPostForm> {
                 if (_formKey.currentState.validate() &&
                     date != null &&
                     time != null) {
-                  await DatabaseService(uid: user.uid)
-                      .updateUserTravelData(to, from, date, time, user.uid);
+                  await DatabaseService(uid: user.uid).updateUserTravelData(
+                      to,
+                      from,
+                      DateTime(
+                          date.year, date.month, date.day, tt.hour, tt.minute),
+                      time,
+                      user.uid);
                   setState(() => error = '');
                   Navigator.pop(context);
                 }

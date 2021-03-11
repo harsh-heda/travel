@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:travel/models/users.dart';
 import 'package:travel/shared/desc.dart';
 import 'package:travel/models/posts.dart';
@@ -52,7 +53,9 @@ class ProfileCustomCard extends StatelessWidget {
                           userData.lastName.toUpperCase(),
                       to: post.to.toUpperCase(),
                       from: post.from.toUpperCase(),
-                      date: post.date,
+                      date: DateFormat.yMMMd('en_US')
+                          .format(post.date)
+                          .toString(),
                       time: post.time,
                     ),
                   ),

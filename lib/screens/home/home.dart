@@ -28,7 +28,6 @@ class _HomeState extends State<Home> {
       else {
         setState(() => value = data);
       }
-      //print(data);
     }
 
     void _showAddPostPanel() {

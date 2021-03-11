@@ -32,11 +32,18 @@ class _SignInState extends State<SignIn> {
             backgroundColor: Colors.blue[100],
             appBar: AppBar(
               backgroundColor: Colors.blue[600],
-              title: Text('Sign in to meet your travel buddy'),
+              title: Text('Sign in to meet travel buddy'),
               actions: <Widget>[
                 TextButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('Register'),
+                  icon: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  label: Text(
+                    'Register',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
                   onPressed: () {
                     widget.toggleView();
                   },
