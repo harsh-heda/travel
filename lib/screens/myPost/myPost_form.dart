@@ -5,14 +5,14 @@ import 'package:travel/shared/constans.dart';
 import 'package:travel/services/database.dart';
 import 'package:travel/shared/loading.dart';
 
-class ProfilePostForm extends StatefulWidget {
+class MyPostPostForm extends StatefulWidget {
   @override
-  _ProfilePostFormState createState() => _ProfilePostFormState();
+  _MyPostPostFormState createState() => _MyPostPostFormState();
   final String pid;
-  ProfilePostForm({this.pid});
+  MyPostPostForm({this.pid});
 }
 
-class _ProfilePostFormState extends State<ProfilePostForm> {
+class _MyPostPostFormState extends State<MyPostPostForm> {
   final _formKey = GlobalKey<FormState>();
 
   String _selectedTime = 'Select time';

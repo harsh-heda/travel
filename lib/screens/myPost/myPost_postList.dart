@@ -4,12 +4,12 @@ import 'package:travel/models/posts.dart';
 import 'package:travel/screens/myPost/myPost_CustomCard.dart';
 import 'package:travel/shared/loading.dart';
 
-class ProfilePostList extends StatefulWidget {
+class MyPostPostList extends StatefulWidget {
   @override
-  _ProfilePostListState createState() => _ProfilePostListState();
+  _MyPostPostListState createState() => _MyPostPostListState();
 }
 
-class _ProfilePostListState extends State<ProfilePostList> {
+class _MyPostPostListState extends State<MyPostPostList> {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<List<PostData>>(context) ?? [];
@@ -19,7 +19,7 @@ class _ProfilePostListState extends State<ProfilePostList> {
       return ListView.builder(
           itemCount: posts.length,
           itemBuilder: (context, index) {
-            return ProfileCustomCard(post: posts[index]);
+            return MyPostCustomCard(post: posts[index]);
           });
     }
   }

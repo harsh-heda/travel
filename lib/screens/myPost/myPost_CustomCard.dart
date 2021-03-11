@@ -7,9 +7,9 @@ import 'package:travel/services/database.dart';
 import 'package:travel/shared/loading.dart';
 import 'package:travel/screens/myPost/myPost_form.dart';
 
-class ProfileCustomCard extends StatelessWidget {
+class MyPostCustomCard extends StatelessWidget {
   final PostData post;
-  ProfileCustomCard({this.post});
+  MyPostCustomCard({this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ProfileCustomCard extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-                  child: ProfilePostForm(
+                  child: MyPostPostForm(
                     pid: post.pid,
                   ),
                 ),

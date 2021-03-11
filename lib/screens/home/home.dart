@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
                   icon: Icon(Icons.assignment_rounded),
                   iconSize: 40,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/myProfile');
+                    Navigator.pushNamed(context, '/myPost');
                   }),
               // IconButton(
               //   icon: Icon(Icons.account_circle_sharp),
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
                   if (value == 'logout')
                     await _auth.signOut();
                   else {
-                    print('myprofile');
+                    Navigator.pushNamed(context, '/profile');
                   }
                 },
                 icon: Icon(Icons.account_circle_sharp),

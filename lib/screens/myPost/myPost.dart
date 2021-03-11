@@ -5,12 +5,12 @@ import 'package:travel/services/database.dart';
 import 'package:travel/screens/myPost/myPost_postList.dart';
 import 'package:provider/provider.dart';
 
-class MyProfile extends StatefulWidget {
+class MyPost extends StatefulWidget {
   @override
-  _MyProfileState createState() => _MyProfileState();
+  _MyPostState createState() => _MyPostState();
 }
 
-class _MyProfileState extends State<MyProfile> {
+class _MyPostState extends State<MyPost> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   String uid;
   String _inputData() {
@@ -35,7 +35,7 @@ class _MyProfileState extends State<MyProfile> {
                     //     Colors.blue[600], BlendMode.colorDodge),
                     image: AssetImage('assets/Travel.jpg'),
                     fit: BoxFit.cover)),
-            child: ProfilePostList()),
+            child: MyPostPostList()),
       ),
     );
   }

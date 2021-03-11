@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/models/users.dart';
+import 'package:travel/screens/profile/profile.dart';
 import 'package:travel/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:travel/services/auth.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         value: AuthService().user,
         child: MaterialApp(routes: {
           '/': (context) => Wrapper(),
-          '/myProfile': (context) => MyProfile()
+          '/myPost': (context) => MyPost(),
+          '/profile': (context) => Profile()
         }));
   }
 }
