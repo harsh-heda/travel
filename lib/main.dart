@@ -4,7 +4,7 @@ import 'package:travel/models/users.dart';
 import 'package:travel/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:travel/services/auth.dart';
-import 'package:travel/screens/myProfile/profile.dart';
+import 'screens/myPost/myPost.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
         context,
         MaterialPageRoute(builder: (context) => Filter()),
       );
-      if (data.isEmpty)
+      if (data == null || data.isEmpty)
         setState(() => filter = !filter);
       else {
         setState(() => value = data);
@@ -70,13 +70,37 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/myProfile');
                   }),
-              IconButton(
+              // IconButton(
+              //   icon: Icon(Icons.account_circle_sharp),
+              //   iconSize: 40,
+              //   onPressed: () async {
+              //     await _auth.signOut();
+              //   },
+              PopupMenuButton(
+                onSelected: (value) async {
+                  if (value == 'logout')
+                    await _auth.signOut();
+                  else {
+                    print('myprofile');
+                  }
+                },
                 icon: Icon(Icons.account_circle_sharp),
                 iconSize: 40,
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-              ),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                  const PopupMenuItem(
+                    value: 'myprofile',
+                    child: ListTile(
+                      title: Text('My Profile'),
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    value: 'logout',
+                    child: ListTile(
+                      title: Text('Logout'),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
           body: Container(

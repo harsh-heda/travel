@@ -12,10 +12,10 @@ class _FilterState extends State<Filter> {
 
   String _selectedDate = "Select Date";
   //String _selectedTime = 'Select time';
-  String to;
-  String from;
-  String date;
-  String time;
+  String to = "";
+  String from = "";
+  String date = "";
+  String time = "";
   Map<String, String> data = new Map();
 
   //date time piceker
@@ -36,99 +36,95 @@ class _FilterState extends State<Filter> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    Text("Filter travel post", style: TextStyle(fontSize: 18)),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    // text field for from
-                    TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: "from"),
-                      onChanged: (val) {
-                        setState(() => from = val);
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 40),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 60),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Text("Filter travel post", style: TextStyle(fontSize: 18)),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // text field for from
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(hintText: "from"),
+                    onChanged: (val) {
+                      setState(() => from = val);
+                    },
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  // text field for to
+
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(hintText: "to"),
+                    onChanged: (val) {
+                      setState(() => to = val);
+                    },
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(children: <Widget>[
+                    // date calender
+
+                    IconButton(
+                      icon: Icon(Icons.calendar_today),
+                      onPressed: () {
+                        _openDatePicker(context);
                       },
                     ),
                     SizedBox(
-                      height: 15,
+                      width: 10,
+                    ),
+                    Text(_selectedDate),
+
+                    SizedBox(
+                      width: 10,
                     ),
 
-                    // text field for to
+                    // select time
 
-                    TextFormField(
-                      decoration: textInputDecoration.copyWith(hintText: "to"),
-                      onChanged: (val) {
-                        setState(() => to = val);
+                    // IconButton(
+                    //   icon: Icon(Icons.alarm),
+                    //   onPressed: () {
+                    //     _openTimePicker(context);
+                    //   },
+                    // ),
+
+                    // SizedBox(
+                    //   width: 15,
+                    // ),
+                    // Text(_selectedTime),
+                  ]),
+                  //time clock
+                  SizedBox(
+                    height: 15,
+                  ),
+                  //submit button
+                  ElevatedButton(
+                      onPressed: () {
+                        to.isEmpty
+                            ? print('to filter not used')
+                            : data['to'] = to;
+                        from.isEmpty
+                            ? print('from filter not used')
+                            : data['from'] = from;
+                        date.isEmpty
+                            ? print('from filter not used')
+                            : data['date'] = date;
+                        Navigator.pop(context, data);
                       },
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(children: <Widget>[
-                      // date calender
-
-                      IconButton(
-                        icon: Icon(Icons.calendar_today),
-                        onPressed: () {
-                          _openDatePicker(context);
-                        },
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(_selectedDate),
-
-                      SizedBox(
-                        width: 10,
-                      ),
-
-                      // select time
-
-                      // IconButton(
-                      //   icon: Icon(Icons.alarm),
-                      //   onPressed: () {
-                      //     _openTimePicker(context);
-                      //   },
-                      // ),
-
-                      // SizedBox(
-                      //   width: 15,
-                      // ),
-                      // Text(_selectedTime),
-                    ]),
-                    //time clock
-                    SizedBox(
-                      height: 15,
-                    ),
-                    //submit button
-                    ElevatedButton(
-                        onPressed: () {
-                          to == null
-                              ? print('to filter not used')
-                              : data['to'] = to;
-                          from == null
-                              ? print('from filter not used')
-                              : data['from'] = from;
-                          date == null
-                              ? print('from filter not used')
-                              : data['date'] = date;
-                          Navigator.pop(context, data);
-                        },
-                        child: Text("Filter",
-                            style: TextStyle(color: Colors.white))),
-                  ],
-                ),
+                      child: Text("Filter",
+                          style: TextStyle(color: Colors.white))),
+                ],
               ),
             ),
           ),

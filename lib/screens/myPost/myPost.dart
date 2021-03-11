@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/models/posts.dart';
 import 'package:travel/services/database.dart';
-import 'package:travel/screens/myProfile/profile_postList.dart';
+import 'package:travel/screens/myPost/myPost_postList.dart';
 import 'package:provider/provider.dart';
 
 class MyProfile extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'package:travel/shared/desc.dart';
 import 'package:travel/models/posts.dart';
 import 'package:travel/services/database.dart';
 import 'package:travel/shared/loading.dart';
-import 'package:travel/screens/myProfile/profilePost_form.dart';
+import 'package:travel/screens/myPost/myPost_form.dart';
 
 class ProfileCustomCard extends StatelessWidget {
   final PostData post;
