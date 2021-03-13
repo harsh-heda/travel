@@ -14,22 +14,27 @@ class _FilterState extends State<Filter> {
   //String _selectedTime = 'Select time';
   String to = "";
   String from = "";
-  String date = "";
+  DateTime startDate;
+  DateTime endDate;
   String time = "";
-  Map<String, String> data = new Map();
+  Map<String, dynamic> data = new Map();
 
   //date time piceker
   Future<void> _openDatePicker(BuildContext context) async {
-    final DateTime d = await showDatePicker(
+    final DateTimeRange d = await showDateRangePicker(
         context: context,
-        initialDate: DateTime.now(),
+        //initialDate: DateTime.now(),
         firstDate: DateTime.now(),
         lastDate: DateTime(2030));
 
     if (d != null) {
       setState(() {
-        _selectedDate = new DateFormat.yMMMd('en_US').format(d).toString();
-        date = _selectedDate;
+        _selectedDate = DateFormat.yMMMd('en_US').format(d.start).toString() +
+            "-" +
+            DateFormat.yMMMd('en_US').format(d.end).toString();
+        startDate = d.start;
+        endDate = d.end;
+        print(startDate);
       });
     }
   }
@@ -117,9 +122,12 @@ class _FilterState extends State<Filter> {
                         from.isEmpty
                             ? print('from filter not used')
                             : data['from'] = from;
-                        date.isEmpty
+                        startDate == null
                             ? print('from filter not used')
-                            : data['date'] = date;
+                            : data['startDate'] = startDate;
+                        endDate == null
+                            ? print('from filter not used')
+                            : data['endDate'] = endDate;
                         Navigator.pop(context, data);
                       },
                       child: Text("Filter",

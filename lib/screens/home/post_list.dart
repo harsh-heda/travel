@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:travel/models/posts.dart';
 import 'package:travel/screens/home/customCard.dart';
@@ -7,7 +6,7 @@ import 'package:travel/screens/home/customCard.dart';
 class PostList extends StatefulWidget {
   @override
   _PostListState createState() => _PostListState();
-  final Map<String, String> filter;
+  final Map<String, dynamic> filter;
   PostList({this.filter});
 }
 
@@ -27,11 +26,13 @@ class _PostListState extends State<PostList> {
             : element.from.toUpperCase() ==
                 widget.filter['from'].toUpperCase());
       }
-      if (widget.filter['date'] != null) {
+      if (widget.filter['startDate'] != null) {
         posts.retainWhere((element) => element.to == null
             ? true
-            : DateFormat.yMMMd('en_US').format(element.date).toString() ==
-                widget.filter['date']);
+            : element.date.microsecondsSinceEpoch >=
+                    widget.filter['startDate'].microsecondsSinceEpoch &&
+                element.date.microsecondsSinceEpoch <=
+                    widget.filter['endDate'].microsecondsSinceEpoch);
       }
     }
 

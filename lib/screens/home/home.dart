@@ -15,11 +15,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
   bool filter = false;
-  Map<String, String> value = new Map();
+  Map<String, dynamic> value = new Map();
   @override
   Widget build(BuildContext context) {
     _navigateNextPageAndRetriveValue(BuildContext context) async {
-      Map<String, String> data = await Navigator.push(
+      Map<String, dynamic> data = await Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Filter()),
       );

@@ -45,7 +45,11 @@ class _TravelPostFormState extends State<TravelPostForm> {
     if (t != null) {
       setState(() {
         tt = t;
-        _selectedTime = t.hour.toString() + ':' + t.minute.toString();
+        _selectedTime = (t.hour >= 10
+                ? t.hour.toString()
+                : '0' + t.hour.toString()) +
+            ':' +
+            (t.minute >= 10 ? t.minute.toString() : '0' + t.minute.toString());
         time = _selectedTime;
       });
     }
