@@ -1,6 +1,6 @@
 # Travel
 
-Flutter App to find travel companion for your journey anywhere.
+A Flutter App to find travel companion for your journey anywhere.
 
 ## Getting Started
 
