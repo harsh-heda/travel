@@ -1,6 +1,6 @@
-# travel
+# Travel
 
-A new Flutter project.
+Flutter App to find travel companion for your journey anywhere.
 
 ## Getting Started
 
